@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Freddy Fazbear's Pizza</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/effects.js"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
+    body, li { font-family: 'Roboto', sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Press Start 2P', cursive; }
+    
+    /* Animaciones sutiles */
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    
+    /* Efecto de parpadeo sutil para el título */
+    .flicker {
+      animation: flicker 3s infinite alternate;
+    }
+    
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+  </style>
+</head>
+<body class="bg-neutral-900 text-stone-100">
+
+  <!-- Navbar -->
+  <header class="bg-neutral-800 shadow-md">
+    <div class="container mx-auto flex items-center justify-between p-4">
+      <h1 class="text-xl md:text-2xl text-yellow-600 flicker">Freddy Fazbear's Pizza</h1>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="index.html" class="hover:text-red-400 transition">Home</a></li>
+          <li><a href="menu.html" class="hover:text-yellow-400 transition">Menú</a></li>
+          <li><a href="animatronics.html" class="hover:text-blue-400 transition">Animatrónicos</a></li>
+          <li><a href="map.html" class="hover:text-red-400 transition">Locales</a></li>
+          <li><a href="stats.html" class="hover:text-yellow-400 transition">Estadísticas</a></li>
+          <li><a href="contact.html" class="hover:text-blue-400 transition">Reserva</a></li>
+        </ul>
+      </nav>
+    </div>
+    <!-- Franja ajedrezada SVG -->
+    <div class="h-2">
+      <svg class="w-full h-full" viewBox="0 0 100 2" preserveAspectRatio="none">
+        <pattern id="checker" width="2" height="2" patternUnits="userSpaceOnUse">
+          <rect width="1" height="1" fill="#f5f5f5"/>
+          <rect x="1" y="1" width="1" height="1" fill="#27272a"/>
+        </pattern>
+        <rect width="100" height="2" fill="url(#checker)" />
+      </svg>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative h-screen bg-cover bg-center" style="background-image:url('src/img/4originalsGang.PNG')">
+    <div class="absolute inset-0 bg-black/70 flex flex-col items-center justify-center text-center px-4">
+      <h2 class="text-4xl md:text-6xl text-yellow-600 mb-4 drop-shadow-lg">¡Bienvenidos a Freddy Fazbear's Pizza!</h2>
+      <p class="max-w-xl text-stone-200 mb-6 text-lg">Vive la experiencia retro-familiar de los 80 con nuestros shows de animatrónicos y las mejores pizzas de la ciudad.</p>
+      <a href="menu.html" class="bg-yellow-600 hover:bg-yellow-500 text-neutral-900 px-8 py-4 rounded-md transition font-bold shadow-lg hover:shadow-xl">Ver Menú</a>
+    </div>
+  </section>
+
+  <!-- Nuestra Historia -->
+  <section class="bg-black text-stone-100 py-16">
+    <div class="container mx-auto grid md:grid-cols-2 gap-8 items-center px-4">
+      <div>
+        <h3 class="text-2xl mb-4 text-yellow-600">Nuestra Historia</h3>
+        <p class="mb-4 text-lg leading-relaxed">Desde los años 80, Freddy Fazbear's Pizza ha sido el epicentro de risas y magia para familias enteras.</p>
+        <p class="text-lg leading-relaxed">Disfruta de shows diarios con Freddy, Chica, Bonnie y Foxy en un ambiente único que combina nostalgia y diversión.</p>
+        <div class="mt-6 p-4 bg-neutral-800 rounded-lg border-l-4 border-yellow-600">
+          <p class="text-sm italic">"Donde la fantasía y la diversión cobran vida"</p>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <div class="bg-neutral-800 p-4 rounded-lg shadow-xl">
+          <img src="src/img/Freddy_Fazbear_Pizzeria_Logo.png" alt="Animatrónicos" class="rounded shadow-md max-w-full h-auto">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ¿Qué Ofrecemos? -->
+  <section class="py-16 bg-gradient-to-b from-neutral-900 to-neutral-800">
+    <div class="container mx-auto px-4">
+      <h3 class="text-3xl text-center mb-12 text-yellow-600">¿Qué Ofrecemos?</h3>
+      <div class="grid md:grid-cols-4 gap-6">
+        <!-- Freddy Card -->
+        <div class="bg-yellow-600 p-6 rounded-lg shadow-lg text-neutral-900 card-hover">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-yellow-700 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <span class="text-2xl">🍕</span>
+            </div>
+            <h4 class="mb-2 font-bold text-lg">Pizzas de Freddy</h4>
+          </div>
+          <p class="text-center">Clásicas y especiales, preparadas al estilo de nuestro líder animatrónico.</p>
+        </div>
+        
+        <!-- Chica Card -->
+        <div class="bg-yellow-500 p-6 rounded-lg shadow-lg text-neutral-900 card-hover">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-yellow-600 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <span class="text-2xl">🧁</span>
+            </div>
+            <h4 class="mb-2 font-bold text-lg">Postres de Chica</h4>
+          </div>
+          <p class="text-center">Deliciosos postres y cupcakes al estilo de Chica.</p>
+        </div>
+        
+        <!-- Bonnie Card -->
+        <div class="bg-purple-700 p-6 rounded-lg shadow-lg text-stone-100 card-hover">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-purple-800 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <span class="text-2xl">🎸</span>
+            </div>
+            <h4 class="mb-2 font-bold text-lg">Shows de Bonnie</h4>
+          </div>
+          <p class="text-center">Coreografías y entretenimiento que te harán vibrar.</p>
+        </div>
+        
+        <!-- Foxy Card -->
+        <div class="bg-red-600 p-6 rounded-lg shadow-lg text-stone-100 card-hover">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-red-700 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <span class="text-2xl">🏴‍☠️</span>
+            </div>
+            <h4 class="mb-2 font-bold text-lg">Fiestas con Foxy</h4>
+          </div>
+          <p class="text-center">El mejor anfitrión para cumpleaños y eventos especiales.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Horarios -->
+  <section class="py-12 bg-neutral-800">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="text-2xl mb-8 text-yellow-600">Horarios de Atención</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-neutral-700 p-6 rounded-lg">
+          <h4 class="text-yellow-500 font-bold mb-2">Lunes - Viernes</h4>
+          <p>11:00 AM - 10:00 PM</p>
+        </div>
+        <div class="bg-neutral-700 p-6 rounded-lg">
+          <h4 class="text-yellow-500 font-bold mb-2">Sábados</h4>
+          <p>10:00 AM - 11:00 PM</p>
+        </div>
+        <div class="bg-neutral-700 p-6 rounded-lg">
+          <h4 class="text-yellow-500 font-bold mb-2">Domingos</h4>
+          <p>12:00 PM - 9:00 PM</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-neutral-800 text-stone-200 py-8 border-t-2 border-yellow-600">
+    <div class="container mx-auto text-center px-4">
+      <div class="mb-4">
+        <h4 class="text-yellow-600 font-bold mb-2">Freddy Fazbear's Pizza</h4>
+        <p class="mb-2">© 2025 Freddy Fazbear's Pizza. Todos los derechos reservados.</p>
+        <p class="text-yellow-400">1987 Pizzaplex Avenue, Hurricane, Utah</p>
+      </div>
+      <div class="mt-6 pt-4 border-t border-neutral-600">
+        <p class="text-sm text-neutral-400">
+          "Freddy Fazbear's Pizza: Donde los recuerdos cobran vida"
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

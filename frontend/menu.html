@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Menú - Freddy Fazbear's Pizza</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/effects.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
+    body { font-family: 'Roboto', sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Press Start 2P', cursive; }
+  </style>
+</head>
+<body class="bg-neutral-900 text-stone-100">
+  <!-- Navbar -->
+  <header class="bg-neutral-800 shadow-md">
+    <div class="container mx-auto flex items-center justify-between p-4">
+      <h1 class="text-xl md:text-2xl text-yellow-600">Menú</h1>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="index.html" class="hover:text-red-400 transition">Home</a></li>
+          <li><a href="menu.html" class="hover:text-yellow-400 transition">Menú</a></li>
+          <li><a href="animatronics.html" class="hover:text-blue-400 transition">Animatrónicos</a></li>
+          <li><a href="map.html" class="hover:text-red-400 transition">Locales</a></li>
+          <li><a href="stats.html" class="hover:text-yellow-400 transition">Estadísticas</a></li>
+          <li><a href="contact.html" class="hover:text-blue-400 transition">Reserva</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ... todo el head igual, navbar igual ... -->
+
+<!-- Menú de Productos -->
+<section class="container mx-auto py-12 px-4">
+  <h2 class="text-3xl text-yellow-600 text-center mb-8">Nuestro Menú Especial</h2>
+
+  <!-- Filtros -->
+  <div class="flex justify-center mb-8 space-x-4">
+    <button data-filter="*" class="filter-btn px-4 py-2 bg-yellow-600 rounded hover:bg-yellow-500 transition">Todos</button>
+    <button data-filter="pizza" class="filter-btn px-4 py-2 bg-gray-700 rounded hover:bg-yellow-500 transition">Pizzas</button>
+    <button data-filter="bebida" class="filter-btn px-4 py-2 bg-gray-700 rounded hover:bg-blue-600 transition">Bebidas</button>
+    <button data-filter="postre" class="filter-btn px-4 py-2 bg-gray-700 rounded hover:bg-yellow-400 transition">Postres</button>
+  </div>
+
+  <!-- Contenedor de productos -->
+  <div id="menu-grid" class="grid md:grid-cols-3 gap-6"></div>
+
+  <!-- Mensaje promocional -->
+  <div class="mt-12 text-center border-t border-yellow-600 pt-8">
+    <p class="text-yellow-400 text-2xl font-bold animate-pulse">✨ ¡TODAS LAS PIZZAS INCLUYEN UN PÓSTER GRATIS DE LA BANDA! ✨</p>
+  </div>
+</section>
+
+<!-- Footer igual -->
+
+<!-- Scripts -->
+<script>
+  const menuGrid = document.getElementById("menu-grid");
+
+  const categoryColors = {
+    pizza: "text-yellow-400",
+    bebida: "text-blue-400",
+    postre: "text-pink-400"
+  };
+
+function crearTarjeta(producto) {
+  const categoria = producto.category.toLowerCase();
+  const tarjeta = document.createElement("div");
+  tarjeta.className = `menu-item ${categoria} bg-gray-800 rounded-lg overflow-hidden shadow-lg`;
+
+  tarjeta.innerHTML = `
+    <img src="${producto.imageUrl || 'img/default.jpg'}" alt="${producto.name}" class="w-full h-48 object-cover">
+    <div class="p-4">
+      <h3 class="text-xl font-bold ${categoryColors[categoria] || 'text-yellow-600'} mb-2">${producto.name}</h3>
+      <p class="text-gray-300 mb-2">${producto.description}</p>
+      <p class="font-semibold text-stone-100 text-lg">$${producto.price.toFixed(2)}</p>
+    </div>
+  `;
+  return tarjeta;
+}
+
+  async function cargarProductos() {
+    try {
+      const response = await fetch("http://localhost:8080/api/products");
+      const productos = await response.json();
+
+      productos.forEach(producto => {
+        const tarjeta = crearTarjeta(producto);
+        menuGrid.appendChild(tarjeta);
+      });
+    } catch (error) {
+      console.error("Error al cargar productos:", error);
+      menuGrid.innerHTML = `<p class="text-red-500 col-span-3 text-center">No se pudo cargar el menú.</p>`;
+    }
+  }
+
+  // Filtros
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.menu-item').forEach(item => {
+        if (filter === "*" || item.classList.contains(filter)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('bg-yellow-600', 'bg-blue-700', 'bg-yellow-500', 'bg-gray-700'));
+      btn.classList.add('bg-yellow-600');
+    });
+  });
+
+  cargarProductos();
+</script>
+</body>
+</html>

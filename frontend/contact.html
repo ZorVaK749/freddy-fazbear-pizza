@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Reserva Cumpleaños - Freddy Fazbear's Pizza</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
+    body { font-family: 'Roboto', sans-serif; }
+    h1,h2,h3,h4 { font-family: 'Press Start 2P', cursive; }
+  </style>
+</head>
+<body class="bg-neutral-900 text-stone-100 min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <header class="bg-neutral-800 shadow-md">
+    <div class="container mx-auto flex items-center justify-between p-4">
+      <h1 class="text-xl md:text-2xl text-yellow-600">Reserva de Cumpleaños</h1>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="index.html" class="hover:text-red-400 transition">Home</a></li>
+          <li><a href="menu.html" class="hover:text-yellow-400 transition">Menú</a></li>
+          <li><a href="animatronics.html" class="hover:text-blue-400 transition">Animatrónicos</a></li>
+          <li><a href="map.html" class="hover:text-red-400 transition">Locales</a></li>
+          <li><a href="stats.html" class="hover:text-yellow-400 transition">Estadísticas</a></li>
+          <li><a href="contact.html" class="hover:text-blue-400 transition">Reserva</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Formulario de Reserva -->
+  <main class="flex-grow container mx-auto py-12 px-4">
+    <h2 class="text-3xl text-center text-yellow-600 mb-8">Reserva tu Fiesta</h2>
+    <form id="reservaForm" class="max-w-lg mx-auto bg-gray-800 p-6 rounded-lg shadow-lg space-y-4">
+      <div>
+        <label for="nombre" class="block mb-1">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" class="w-full p-2 rounded bg-neutral-700 text-stone-100" required />
+      </div>
+      <div>
+        <label for="email" class="block mb-1">Correo electrónico</label>
+        <input type="email" id="email" name="email" class="w-full p-2 rounded bg-neutral-700 text-stone-100" required />
+      </div>
+      <div>
+        <label for="fecha" class="block mb-1">Fecha de la fiesta</label>
+        <input type="date" id="fecha" name="fecha" class="w-full p-2 rounded bg-neutral-700 text-stone-100" required />
+      </div>
+      <div>
+        <label for="invitados" class="block mb-1">Número de invitados</label>
+        <input type="number" id="invitados" name="invitados" class="w-full p-2 rounded bg-neutral-700 text-stone-100" min="1" required />
+      </div>
+      <div>
+        <label for="mensaje" class="block mb-1">Mensaje / Pedidos especiales</label>
+        <textarea id="mensaje" name="mensaje" rows="4" class="w-full p-2 rounded bg-neutral-700 text-stone-100"></textarea>
+      </div>
+      <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-500 text-neutral-900 py-2 rounded transition">Enviar Reserva</button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-neutral-800 text-stone-200 py-6">
+    <div class="container mx-auto text-center px-4">
+      <p>© 2025 Freddy Fazbear's Pizza. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.getElementById('reservaForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const data = {
+        nombre: document.getElementById('nombre').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        fecha: document.getElementById('fecha').value,
+        invitados: parseInt(document.getElementById('invitados').value),
+        mensaje: document.getElementById('mensaje').value.trim()
+      };
+
+      try {
+        const res = await fetch('http://localhost:8080/api/reservas', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          Swal.fire({
+            icon: 'success',
+            title: '¡Reserva enviada!',
+            text: 'Gracias por confiar en Freddy Fazbear\'s Pizza.'
+          });
+          this.reset();
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo enviar la reserva. Inténtalo de nuevo.'
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error de conexión',
+          text: 'No se pudo conectar con el servidor.'
+        });
+      }
+    });
+  </script>
+</body>
+</html>

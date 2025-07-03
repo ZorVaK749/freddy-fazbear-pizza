@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Animatrónicos - Freddy Fazbear's Pizza</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/effects.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
+    body { font-family: 'Roboto', sans-serif; }
+    h1,h2,h3,h4 { font-family: 'Press Start 2P', cursive; }
+  </style>
+</head>
+<body class="bg-neutral-900 text-stone-100 min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <header class="bg-neutral-800 shadow-md">
+    <div class="container mx-auto flex items-center justify-between p-4">
+      <h1 class="text-xl md:text-2xl text-yellow-600">Animatrónicos</h1>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="index.html" class="hover:text-red-400 transition">Home</a></li>
+          <li><a href="menu.html" class="hover:text-yellow-400 transition">Menú</a></li>
+          <li><a href="animatronics.html" class="hover:text-blue-400 transition">Animatrónicos</a></li>
+          <li><a href="map.html" class="hover:text-red-400 transition">Locales</a></li>
+          <li><a href="stats.html" class="hover:text-yellow-400 transition">Estadísticas</a></li>
+          <li><a href="contact.html" class="hover:text-blue-400 transition">Reserva</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto py-12 px-4">
+    <h2 class="text-3xl text-center text-yellow-600 mb-8">Conoce a Nuestro Equipo</h2>
+    <div id="animatronics-container" class="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <!-- Animatrónicos se cargarán aquí dinámicamente -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-neutral-800 text-stone-200 py-6">
+    <div class="container mx-auto text-center px-4">
+      <p>© 2025 Freddy Fazbear's Pizza. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Script para cargar animatrónicos -->
+<script>
+  const animatronicColors = {
+    "Freddy Fazbear": "hover:shadow-amber-800/50",
+    "Bonnie": "hover:shadow-blue-500/50",
+    "Chica": "hover:shadow-yellow-400/50",
+    "Foxy": "hover:shadow-red-500/50"
+  };
+
+  fetch('http://localhost:8080/api/animatronics')
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById('animatronics-container');
+      data.forEach(anim => {
+        // Determina la clase de sombra según el nombre
+        const colorClass = animatronicColors[anim.name] || "hover:shadow-white/50";
+
+        container.innerHTML += `
+          <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transition ${colorClass}">
+            <img src="${anim.imageUrl}" alt="${anim.name}" class="w-full h-48 object-cover">
+            <div class="p-4 text-center">
+              <h3 class="text-xl font-bold text-yellow-400 mb-2">${anim.name}</h3>
+              <p class="italic text-stone-400 mb-1">${anim.role}</p>
+              <p class="text-gray-300 text-sm">${anim.description}</p>
+            </div>
+          </div>
+        `;
+      });
+    })
+    .catch(error => {
+      console.error('Error al cargar animatrónicos:', error);
+    });
+</script>
+
+</body>
+</html>

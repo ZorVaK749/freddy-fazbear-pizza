@@ -1,0 +1,35 @@
+freddy-fazbear-pizza/
+├── frontend/
+│   ├── index.html          ← Página principal (bienvenida)
+│   ├── menu.html           ← Catálogo de pizzas y productos
+│   ├── animatronics.html   ← Galería de animatrónicos
+│   ├── map.html            ← Mapa interactivo de locales
+│   ├── stats.html          ← Estadísticas gráficas (Chart.js)
+│   ├── contact.html        ← Formulario de reserva de cumpleaños
+│   ├── css/
+│   │   └── styles.css      ← Estilos adicionales (si hiciera falta)
+│   ├── js/
+│   │   ├── main.js         ← Lógica de navegación global y controles
+│   │   ├── api.js          ← Conexión a endpoints REST y API externa
+│   │   ├── charts.js       ← Configuración de Chart.js
+│   │   ├── map.js          ← Inicialización de Leaflet y marcadores
+│   │   └── effects.js      ← Animaciones con Anime.js / SweetAlert
+├── backend/
+│   ├── controllers/        ← Controladores Spring Boot
+│   │   ├── ProductController.java
+│   │   ├── AnimatronicController.java
+│   │   ├── LocationController.java
+│   │   └── EventController.java
+│   ├── models/             ← Clases entidad JPA
+│   │   ├── Product.java
+│   │   ├── Animatronic.java
+│   │   ├── Location.java
+│   │   └── Event.java
+│   ├── repositories/       ← Interfaces JPA Repository
+│   ├── services/           ← Lógica de negocio (opcional)
+│   ├── FredbearApplication.java ← Clase principal Spring Boot
+│   └── resources/
+│       └── application.properties ← Config DB, puerto, etc.
+└── database/
+    └── schema.sql          ← Script de creación de tablas
+
